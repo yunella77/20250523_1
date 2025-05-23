@@ -41,6 +41,7 @@ function draw() {
     // 右眼
     drawFacemeshLine(keypoints, rightEyeIndices);
   }
+  pop();
 }
 
 // 依序連接每一組編號的點
