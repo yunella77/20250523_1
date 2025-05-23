@@ -26,6 +26,11 @@ function modelReady() {
 
 function draw() {
   background(220);
+
+  // 鏡像畫面與線條
+  push();
+  translate(width, 0);
+  scale(-1, 1);
   image(video, 0, 0, width, height);
 
   if (predictions.length > 0) {
