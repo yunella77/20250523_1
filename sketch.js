@@ -54,8 +54,12 @@ function drawFacemeshLine(keypoints, indices) {
   for (let i = 0; i < indices.length - 1; i++) {
     const idxA = indices[i];
     const idxB = indices[i + 1];
-    const [xA, yA] = keypoints[idxA];
-    const [xB, yB] = keypoints[idxB];
-    line(xA, yA, xB, yB);
+    const ptA = keypoints[idxA];
+    const ptB = keypoints[idxB];
+    if (ptA && ptB) {
+      const [xA, yA] = ptA;
+      const [xB, yB] = ptB;
+      line(xA, yA, xB, yB);
+    }
   }
 }
