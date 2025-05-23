@@ -1,11 +1,13 @@
 let facemesh;
 let video;
 let predictions = [];
-const indices = [409, 270, 269, 267, 0, 37, 39, 40, 185, 61, 146, 91, 181, 84, 17, 314, 405, 321, 375, 291, 76, 77, 90, 180, 85, 16, 315, 404, 320, 307, 306, 408, 304, 303, 302, 11, 72, 73, 74, 184];
+
+// 嘴巴、左眼、右眼的 facemesh 編號
+const mouthIndices = [409,270,269,267,0,37,39,40,185,61,146,91,181,84,17,314,405,321,375,291,76,77,90,180,85,16,315,404,320,307,306,408,304,303,302,11,72,73,74,184];
+const leftEyeIndices = [243,190,56,28,27,29,30,247,130,25,110,24,23,22,26,112,133,173,157,158,159,160,161,246,33,7,163,144,145,153,154,155];
+const rightEyeIndices = [359,467,260,259,257,258,286,414,463,341,256,252,253,254,339,255,263,466,388,387,386,385,384,398,362,382,381,380,374,373,390,249];
 
 function setup() {
-  createCanvas(640, 480).parent(document.body);
-  // 將畫布置中
   let cnv = createCanvas(640, 480);
   cnv.style('display', 'block');
   cnv.position((windowWidth - width) / 2, (windowHeight - height) / 2);
@@ -31,12 +33,23 @@ function draw() {
     stroke(255, 0, 0);
     strokeWeight(15);
     noFill();
-    beginShape();
-    for (let i = 0; i < indices.length; i++) {
-      const idx = indices[i];
-      const [x, y] = keypoints[idx];
-      vertex(x, y);
-    }
-    endShape();
+
+    // 嘴巴
+    drawFacemeshLine(keypoints, mouthIndices);
+    // 左眼
+    drawFacemeshLine(keypoints, leftEyeIndices);
+    // 右眼
+    drawFacemeshLine(keypoints, rightEyeIndices);
+  }
+}
+
+// 依序連接每一組編號的點
+function drawFacemeshLine(keypoints, indices) {
+  for (let i = 0; i < indices.length - 1; i++) {
+    const idxA = indices[i];
+    const idxB = indices[i + 1];
+    const [xA, yA] = keypoints[idxA];
+    const [xB, yB] = keypoints[idxB];
+    line(xA, yA, xB, yB);
   }
 }
