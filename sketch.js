@@ -1,11 +1,15 @@
 let video;
 let facemesh;
 let predictions = [];
-const indices = [
+
+// 紅色線的點
+const redIndices = [
   409,270,269,267,0,37,39,40,185,61,146,91,181,84,17,
   314,405,321,375,291,76,77,90,180,85,16,315,404,320,
   307,306,408,304,303,302,11,72,73,74,184
 ];
+
+// 藍色線的點
 const blueIndices = [
   243,190,56,28,27,29,30,247,130,25,110,24,23,22,26,
   112,133,173,157,158,159,160,161,246,33,7,163,144,145,153,154,155
@@ -41,8 +45,8 @@ function draw() {
     strokeWeight(15);
     noFill();
     beginShape();
-    for (let i = 0; i < indices.length; i++) {
-      const idx = indices[i];
+    for (let i = 0; i < redIndices.length; i++) {
+      const idx = redIndices[i];
       const [x, y] = keypoints[idx];
       vertex(x, y);
     }
